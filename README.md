@@ -2,7 +2,7 @@
 
 This is a example project for [cinatra](https://github.com/qicosmos/cinatra)
 
-## Build
+## Build on linux
 
 ```sh
 git clone https://github.com/samlior/cinatra_example.git
@@ -10,6 +10,15 @@ cd cinatra_example
 mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -G Ninja ..
 ninja
+```
+
+## Build on windows
+
+```sh
+git clone https://github.com/samlior/cinatra_example.git
+cd cinatra_example
+mkdir build && cd build
+cmake ..
 ```
 
 ## License
