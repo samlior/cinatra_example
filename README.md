@@ -2,7 +2,7 @@
 
 This is a example project for [cinatra](https://github.com/qicosmos/cinatra)
 
-## Build on Linux and macOs
+## Build on Linux and macOS
 
 ```sh
 git clone https://github.com/samlior/cinatra_example.git
