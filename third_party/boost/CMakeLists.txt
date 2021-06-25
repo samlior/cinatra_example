@@ -47,6 +47,65 @@ set(BOOST_SERIALIZATION_SRC
   libs/serialization/src/basic_xml_grammar.ipp # doesn't show up in "Source Files" in Xcode"'
 )
 
+set(BOOST_LOG_SRC
+	libs/log/src/attribute_name.cpp
+	libs/log/src/attribute_set.cpp
+	libs/log/src/attribute_value_set.cpp
+	libs/log/src/code_conversion.cpp
+	libs/log/src/core.cpp
+	libs/log/src/date_time_format_parser.cpp
+	libs/log/src/default_attribute_names.cpp
+	libs/log/src/default_sink.cpp
+	libs/log/src/dump.cpp
+	libs/log/src/dump_avx2.cpp
+	libs/log/src/dump_ssse3.cpp
+	libs/log/src/event.cpp
+	libs/log/src/exceptions.cpp
+	libs/log/src/format_parser.cpp
+	libs/log/src/global_logger_storage.cpp
+	libs/log/src/named_scope.cpp
+	libs/log/src/named_scope_format_parser.cpp
+	libs/log/src/once_block.cpp
+	libs/log/src/permissions.cpp
+	libs/log/src/process_id.cpp
+	libs/log/src/process_name.cpp
+	libs/log/src/record_ostream.cpp
+	libs/log/src/setup/default_filter_factory.cpp
+	libs/log/src/setup/default_formatter_factory.cpp
+	libs/log/src/setup/filter_parser.cpp
+	libs/log/src/setup/formatter_parser.cpp
+	libs/log/src/setup/init_from_settings.cpp
+	libs/log/src/setup/init_from_stream.cpp
+	libs/log/src/setup/matches_relation_factory.cpp
+	libs/log/src/setup/parser_utils.cpp
+	libs/log/src/setup/settings_parser.cpp
+	libs/log/src/severity_level.cpp
+	libs/log/src/spirit_encoding.cpp
+	libs/log/src/syslog_backend.cpp
+	libs/log/src/text_file_backend.cpp
+	libs/log/src/text_multifile_backend.cpp
+	libs/log/src/text_ostream_backend.cpp
+	libs/log/src/thread_id.cpp
+	libs/log/src/thread_specific.cpp
+	libs/log/src/threadsafe_queue.cpp
+	libs/log/src/timer.cpp
+	libs/log/src/timestamp.cpp
+	libs/log/src/trivial.cpp
+)
+
+if(WIN32)
+	list(APPEND BOOST_LOG_SRC libs/log/src/windows/debug_output_backend.cpp)
+	list(APPEND BOOST_LOG_SRC libs/log/src/windows/event_log_backend.cpp)
+	list(APPEND BOOST_LOG_SRC libs/log/src/windows/ipc_reliable_message_queue.cpp)
+	list(APPEND BOOST_LOG_SRC libs/log/src/windows/ipc_sync_wrappers.cpp)
+	list(APPEND BOOST_LOG_SRC libs/log/src/windows/light_rw_mutex.cpp)
+	list(APPEND BOOST_LOG_SRC libs/log/src/windows/mapped_shared_memory.cpp)
+	list(APPEND BOOST_LOG_SRC libs/log/src/windows/object_name.cpp)
+else()
+	list(APPEND BOOST_LOG_SRC libs/log/src/posix/ipc_reliable_message_queue.cpp)
+	list(APPEND BOOST_LOG_SRC libs/log/src/posix/object_name.cpp)
+endif()
+
 set(BOOST_REGEX_SRC
 	libs/regex/src/regex.cpp
 	libs/regex/src/regex_traits_defaults.cpp
@@ -323,6 +382,14 @@ if(USE_BOOST_SERIALIZATION)
 endif()
 
 if(Boost_USE_STATIC_LIBS)
+add_library(boost_log_static STATIC ${BOOST_LOG_SRC})
+add_library(Boost::log ALIAS boost_log_static)
+else()
+add_library(boost_log_dll SHARED ${BOOST_LOG_SRC})
+add_library(Boost::log ALIAS boost_log_dll)
+endif()
+
+if(Boost_USE_STATIC_LIBS)
 add_library(boost_thread_static STATIC ${BOOST_THREAD_SRC})
 add_library(Boost::thread ALIAS boost_thread_static)
 else()
@@ -451,6 +518,7 @@ if(Boost_USE_STATIC_LIBS)
 	if(USE_BOOST_SERIALIZATION)
 		target_link_libraries(boost_serialization_static boost_header)
 	endif()
+	target_link_libraries(boost_log_static boost_header boost_thread_static)
 	target_link_libraries(boost_filesystem_static boost_header)
 	target_link_libraries(boost_thread_static boost_header Threads::Threads)
 	target_link_libraries(boost_context_static boost_header)
@@ -471,6 +539,7 @@ else()
 	if(USE_BOOST_SERIALIZATION)
 		target_link_libraries(boost_serialization_dll boost_header)
 	endif()
+	target_link_libraries(boost_log_dll boost_header boost_thread_dll)
 	target_link_libraries(boost_filesystem_dll boost_header)
 	target_link_libraries(boost_thread_dll boost_header Threads::Threads)
 	target_link_libraries(boost_context_dll boost_header)
@@ -503,6 +572,7 @@ set(BOOST_LIBRARIES
 	Boost::boost
 	Boost::serialization
 	Boost::atomic
+	Boost::log
 	Boost::context
 	Boost::fiber
 	Boost::coroutine
@@ -523,6 +593,7 @@ if(Boost_USE_STATIC_LIBS)
 	if(USE_BOOST_SERIALIZATION)
 		set_target_properties(boost_serialization_static PROPERTIES FOLDER "third_party/boost")
 	endif()
+	set_target_properties(boost_log_static PROPERTIES FOLDER "third_party/boost")
 	set_target_properties(boost_filesystem_static PROPERTIES FOLDER "third_party/boost")
 	set_target_properties(boost_thread_static PROPERTIES FOLDER "third_party/boost")
 	set_target_properties(boost_context_static PROPERTIES FOLDER "third_party/boost")
@@ -543,6 +614,7 @@ else()
 	if(USE_BOOST_SERIALIZATION)
 		set_target_properties(boost_serialization_dll PROPERTIES FOLDER "third_party/boost")
 	endif()
+	set_target_properties(boost_log_dll PROPERTIES FOLDER "third_party/boost")
 	set_target_properties(boost_filesystem_dll PROPERTIES FOLDER "third_party/boost")
 	set_target_properties(boost_thread_dll PROPERTIES FOLDER "third_party/boost")
 	set_target_properties(boost_context_dll PROPERTIES FOLDER "third_party/boost")

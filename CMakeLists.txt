@@ -127,6 +127,7 @@ link_libraries(
 #		Boost::context
 #		Boost::thread
 		Boost::date_time
+		Boost::log
 #		Boost::filesystem
 #		Boost::program_options
 		jsoncpp
