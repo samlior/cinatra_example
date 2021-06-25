@@ -2,17 +2,17 @@
 
 This is a example project for [cinatra](https://github.com/qicosmos/cinatra)
 
-## Build on linux
+## Build on Linux and macOs
 
 ```sh
 git clone https://github.com/samlior/cinatra_example.git
 cd cinatra_example
 mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -G Ninja ..
+cmake .. -DCMAKE_C_FLAGS=-mavx2 -DCMAKE_CXX_FLAGS=-mavx2 -DCMAKE_BUILD_TYPE=Release -G Ninja
 ninja
 ```
 
-## Build on windows
+## Build on Windows
 
 ```sh
 git clone https://github.com/samlior/cinatra_example.git
