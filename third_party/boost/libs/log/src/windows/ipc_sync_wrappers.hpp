@@ -41,7 +41,7 @@
 #include <boost/intrusive/list_hook.hpp>
 #include <boost/log/exceptions.hpp>
 #include <boost/log/utility/permissions.hpp>
-#include "windows/auto_handle.hpp"
+#include "auto_handle.hpp"
 #include <boost/log/detail/header.hpp>
 
 namespace boost {

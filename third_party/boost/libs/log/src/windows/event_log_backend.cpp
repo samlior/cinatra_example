@@ -33,9 +33,9 @@
 #include <boost/log/utility/formatting_ostream.hpp>
 #include <windows.h>
 #include <psapi.h>
-#include "unique_ptr.hpp"
-#include "windows/event_log_registry.hpp"
-#include "windows/simple_event_log.h"
+#include "../unique_ptr.hpp"
+#include "event_log_registry.hpp"
+#include "simple_event_log.h"
 #include <boost/log/detail/header.hpp>
 
 namespace boost {

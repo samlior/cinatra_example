@@ -34,8 +34,8 @@
 #include <boost/memory_order.hpp>
 #include <boost/atomic/atomic.hpp>
 #include <boost/log/detail/snprintf.hpp>
-#include "unique_ptr.hpp"
-#include "windows/ipc_sync_wrappers.hpp"
+#include "../unique_ptr.hpp"
+#include "ipc_sync_wrappers.hpp"
 #include <boost/log/detail/header.hpp>
 
 namespace boost {

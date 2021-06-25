@@ -32,7 +32,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/log/exceptions.hpp>
 #include <boost/log/utility/permissions.hpp>
-#include "windows/mapped_shared_memory.hpp"
+#include "mapped_shared_memory.hpp"
 #include <boost/log/detail/header.hpp>
 
 namespace boost {

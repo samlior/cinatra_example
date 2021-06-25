@@ -38,11 +38,11 @@
 #include <boost/exception/enable_error_info.hpp>
 #include <boost/align/align_up.hpp>
 #include <boost/winapi/thread.hpp> // SwitchToThread
-#include "windows/ipc_sync_wrappers.hpp"
-#include "windows/mapped_shared_memory.hpp"
-#include "windows/utf_code_conversion.hpp"
-#include "murmur3.hpp"
-#include "bit_tools.hpp"
+#include "ipc_sync_wrappers.hpp"
+#include "mapped_shared_memory.hpp"
+#include "utf_code_conversion.hpp"
+#include "../murmur3.hpp"
+#include "../bit_tools.hpp"
 #include <windows.h>
 #include <boost/log/detail/header.hpp>
 
